@@ -20,6 +20,7 @@ function numIslands(grid) {
     //functions
     //1 checkValid
     function checkValid(r, c) {
+
         if (r < 0 || c < 0 || r >= numR || c >= numC) {
             return false;
         }
@@ -35,10 +36,10 @@ function numIslands(grid) {
         //if out of bounds
         if (!checkValid(r,c)) return;
         if (grid[r][c] === 0) return;
-        if (`$r-$c` in vis) return;
+        if (vis[`${r}-${c}`]) return;
         
 
-        vis[`$r-$c`] = 1;
+        vis[`${r}-${c}`] = 1;
 
         dfs(r-1, c);
         dfs(r+1, c);
@@ -51,7 +52,8 @@ function numIslands(grid) {
     //only run DFS if, not visited and its a 1
     for(let r = 0; r < numR; r++) {
         for(let c = 0; c < numC; c++) {
-            if (grid[r][c] === 1 && !(`$r-$c` in vis)) {
+
+            if (grid[r][c] === 1 && !vis[`${r}-${c}`]) {
                 numIslands++;
                 dfs(r,c);
             }
